@@ -54,10 +54,10 @@ boolean startIsPressed;
 boolean smsSent;
     String destinationText;
     String starting;
-    String startingLongtitude = null;
+
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     LocationManager lm;
-    String startingLatitude = null;
+
     AsyncHTTP async;
     double minutesToText;
     EditText phoneNumber;
@@ -69,8 +69,7 @@ boolean smsSent;
     double longitude;
     double latitude;
 
-    private static final long LOCATION_REFRESH_TIME = 10;
-    private static final float LOCATION_REFRESH_DISTANCE = 1;
+
     private com.google.android.gms.location.FusedLocationProviderClient fusedLocationClient;
 
 
@@ -140,13 +139,11 @@ System.out.println(fine + ""+ coarse);
                     System.out.println("Made it");
                     longitude = location.getLongitude();
                     latitude = location.getLatitude();
-//fix this, i changeed the if varibabler was starringloc now its startinglongtitude
 
 
 
-                    //   String locationFromButtonPress = loc.toString();
 
-                    // System.out.println(locationFromButtonPress);
+
                     System.out.println("LocationButton");
                     System.out.println(latitude);
                     System.out.println(longitude);
@@ -159,7 +156,7 @@ System.out.println(fine + ""+ coarse);
 
                minutesToText  =   Double.parseDouble(mins);
                        async = new AsyncHTTP();
-//String timeNeeded ="1 day 12 hours";
+
                     String timeNeeded = async.jsonParse(async.doInBackground(destinationText, minutesToText,starting));
                     if (timeNeeded != null) {
                         async.timeConverter(timeNeeded);
@@ -185,25 +182,22 @@ System.out.println(fine + ""+ coarse);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 System.out.println("On requestPermissionsResult");
-                // If request is cancelled, the result arrays are empty.
+
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
+
                     if (ContextCompat.checkSelfPermission(this,
                             ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
-                        //Request location updates:
+
                         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, locationListener);
                     }
 
                 } else {
 
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
+                    //denied
                 }
                 return;
             }
@@ -266,8 +260,7 @@ System.out.println(fine + ""+ coarse);
 
 
            }
-           // each time klocation is changed we need to calculate the minutes again
-            // an
+           
         }
     };
 

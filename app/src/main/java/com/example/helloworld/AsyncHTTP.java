@@ -16,8 +16,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class AsyncHTTP  extends AsyncTask {
-
-
+// google distance matrix
+private static final String yourAPIkey = "APIkey";
     public double getMinutes() {
         return minutes;
     }
@@ -35,11 +35,10 @@ public class AsyncHTTP  extends AsyncTask {
     }
     protected Object doInBackground(String endDestination, double minutesToSendText, String startingLatLong) {
         StringBuilder response = new StringBuilder();
-        // find how to read the current latitiud anfd longitude
-       // String starting ="Georgia";
+
 
         try {
-            URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+startingLatLong.replaceAll(" ", "")+"&destinations="+endDestination+"&key=AIzaSyCsSSWt30t15x80RyRkN0ab3heWpaPCzLE");
+            URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+startingLatLong.replaceAll(" ", "")+"&destinations="+endDestination+"&key="+yourAPIkey);
 
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
@@ -69,7 +68,7 @@ public class AsyncHTTP  extends AsyncTask {
 
 
         }
-        // started from video
+
 
         return response;
 
@@ -90,7 +89,7 @@ public class AsyncHTTP  extends AsyncTask {
                     JSONArray data = json.getJSONArray("rows");
 int length = data.length();
 System.out.println(length);
-// getting the array, which has elments;
+
             for (int i = 0; i < length; i++) {
 
                  elements = data.getJSONObject(i);
@@ -101,7 +100,6 @@ System.out.println(length);
 
 
 
-//System.out.println( elements.getJSONObject("distance"));
 JSONObject holder = null;
             JSONArray timee = elements.getJSONArray("elements");
             length = elements.length();
@@ -157,9 +155,9 @@ System.out.println("oops");
                     typeOfTime += time.charAt(index);
                     System.out.println(typeOfTime);
                     index++;
-                    System.out.println(index);              // the second part needs to be updated becase it checking to see
+                    System.out.println(index);
                                      if(index==time.length()-1)
-                                        notLastPosition = true;                         // if its a number, we need a letter check
+                                        notLastPosition = true;
                     if( (index<time.length() ||index==time.length()-1) &&(Character.isDigit(time.charAt(index))||notLastPosition)) {
                                System.out.println("After index vcheck");
                         switch(typeOfTime) {
